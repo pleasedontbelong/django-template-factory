@@ -1,0 +1,33 @@
+{% macro input(field, disabled=False) %}
+<div class="form-group{% if field.errors %} has-error has-feedback{% endif %}">
+    <label class="col-md-3 control-label">{{ field.label }}</label>
+    <div class="col-md-9">
+        {% autoescape False %}
+          {% if not field.field.widget.check_test %}
+            {{ field|add_class("form-control", disabled)|safe }}
+          {% else %}
+            {{ field|safe }}
+          {% endif %}
+        {% endautoescape %}
+        {% if field.errors %}
+          <span class="fa fa-times form-control-feedback"></span>
+          <div class="text-danger">{{ field.errors|safe }}</div>
+        {% endif %}
+    </div>
+</div>
+{% endmacro %}
+
+{% macro checkbox(field, offset=3) %}
+<div class="form-group{% if field.errors %} has-error has-feedback{% endif %}">
+  <div class="col-sm-9 col-sm-offset-{{ offset }}">
+    <div class="checkbox">
+      <label>
+        {{ field|safe }} {{ field.label|safe }}
+      </label>
+      {% if field.errors %}
+        <div class="text-danger">{{ field.errors|safe }}</div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endmacro %}

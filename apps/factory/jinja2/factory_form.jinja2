@@ -1,0 +1,7 @@
+{% import 'macros/form_macros.jinja2' as form_macros with context %}
+
+<form action="" method="post">
+  {% csrf_token %}
+  {{ form_macros.checkbox(form.pipeline) }}
+  {{ form_macros.checkbox(form.jinja2) }}
+</form>
