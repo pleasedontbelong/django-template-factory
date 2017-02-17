@@ -5,6 +5,7 @@ from factory.forms import FactoryForm
 class HomeView(FormView):
     template_name = "home.jinja2"
     form_class = FactoryForm
+    success_url = 'home'
 
     def form_valid(self, form):
         form.generate()
