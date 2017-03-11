@@ -1,3 +1,0 @@
-Factory==1.2
-Django==1.10.5
-django-extended-choices==1.1.1

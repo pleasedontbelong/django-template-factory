@@ -1,0 +1,18 @@
+{% import 'macros/form_macros.jinja2' as form_macros with context %}
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form_macros.input(form.name) }}
+      {{ form_macros.checkbox(form.pipeline) }}
+      {{ form_macros.checkbox(form.jinja2) }}
+      {{ form_macros.checkbox(form.extended_choices) }}
+      {{ form_macros.checkbox(form.braces) }}
+      {{ form_macros.checkbox(form.rest_framework) }}
+       <div class="text-center">
+         <button id='save-and-quit' type="submit" class="btn btn-sm btn-primary">{{_("Generate")}}</button>
+      </div>
+    </form>
+  </div>
+</div>

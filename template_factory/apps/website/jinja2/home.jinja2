@@ -14,6 +14,9 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <!-- Custom styles for this template -->
     {% stylesheet 'home' %}
 
@@ -50,9 +53,41 @@
             <p class="lead">This is a simple way to bootstrap a django project already installing the packages you choose from the list below.</p>
           </div>
 
-          <div>
-            {% include "factory_form.jinja2" %}
-          </div>
+          {% if branch %}
+            <h2>Your build is ready</h2>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div>
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                      <a href="#build" aria-controls="build" role="tab" data-toggle="tab">Build</a>
+                    </li>
+                    <li role="presentation">
+                      <a href="#logs" aria-controls="logs" role="tab" data-toggle="tab">Logs</a>
+                    </li>
+                  </ul>
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="build">
+                      <p>You can now use this template to generate your django project.</p>
+                      <pre><code id="build-command">django-admin startproject --template=https://github.com/pleasedontbelong/django-template/archive/{{ branch }}.zip --name=Procfile --extension=py,md,env {{ name }}</code></pre>
+                      <button class="btn btn-sm copy" data-clipboard-action="copy" data-clipboard-target="#build-command">
+                          Copy <i class="fa fa-clipboard" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="logs">
+                      <pre>{{ log }}</pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% else %}
+            <div>
+              {% include "factory_form.jinja2" %}
+            </div>
+          {% endif %}
 
           <div class="mastfoot">
             <div class="inner">
@@ -71,6 +106,12 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.6.0/clipboard.min.js"></script>
+    <script>
+      $(function(){
+        new Clipboard('.copy');
+      });
+    </script>
     
   </body>
 </html>

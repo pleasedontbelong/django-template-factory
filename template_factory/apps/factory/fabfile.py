@@ -3,15 +3,28 @@ import hashlib
 from os.path import join
 
 from fabric.api import local, lcd, settings
-from fabric.colors import green, yellow
+from fabric.colors import green, yellow, white, cyan
 from constants import CORE_REPO, ADDONS
 
 
 class Generator(object):
 
-    def __init__(self, config, dry_run=True):
+    def __init__(self, config, dry_run=True, quiet=False):
         self.config = config
         self.dry_run = dry_run
+        self.quiet = quiet
+        self._log = ""
+
+    def log(self, color, message):
+        if self.quiet:
+            self._log += message + "\n"
+        else:
+            print(color(message))
+
+    def local(self, command):
+        output = local(command, capture=True)
+        self.log(cyan, command)
+        self.log(white, output.stdout)
 
     @property
     def config_hash(self):
@@ -37,7 +50,7 @@ class Generator(object):
         """
         Remove temp dir if exists
         """
-        local('rm -rf %s' % self.build_dir)
+        self.local('rm -rf %s' % self.build_dir)
 
     def clone_core(self):
         """
@@ -45,20 +58,20 @@ class Generator(object):
         """
         self.clean()
         with lcd(self.tmp):
-            local("git clone %s %s" % (CORE_REPO, self.config_hash))
+            self.local("git clone %s %s" % (CORE_REPO, self.config_hash))
 
     def merge_addon(self, addon):
         """
         Merges the addon branch
         """
         msg = "Merging %s" % addon.display
-        local("git merge origin/%s -m '%s'" % (addon, msg))
+        self.local("git merge origin/%s -m '%s'" % (addon.value, msg))
 
     def commit(self):
         """
         Pushes the branch to origin
         """
-        local("git push origin HEAD")
+        self.local("git push origin HEAD")
 
     def previously_built(self):
         """
@@ -71,26 +84,27 @@ class Generator(object):
         return response.succeeded
 
     def run(self):
-        print(green("Building the core django template %s" % self.config_hash))
+        self.log(green, "Building the core django template %s" % self.config_hash)
         self.clone_core()
 
         with lcd(self.build_dir):
             if self.previously_built():
-                print(yellow("Build Branch already exists!"))
-                print(green(self.build_branch))
+                self.log(yellow, "Build Branch already exists!")
+                self.log(green, self.build_branch)
                 return
 
-        print(green("Creating a new branch and merging addons"))
+        self.log(green, "Creating a new branch and merging addons")
         with lcd(self.build_dir):
-            local("git checkout -b %s" % self.build_branch)
+            self.local("git checkout -b %s" % self.build_branch)
             for addon in self.config['addons']:
-                print(yellow("Installing %s" % addon.display))
+                self.log(yellow, "Installing %s" % addon.display)
                 self.merge_addon(addon)
 
             if not self.dry_run:
-                print(green("Pushing build to github"))
+                self.log(green, "Pushing build to github")
                 self.commit()
-            print(green(self.build_branch))
+        self.log(green, self.build_branch)
+        return self.build_branch
 
 
 def generate():
@@ -100,4 +114,4 @@ def generate():
             ADDONS.JINJA2,
         ]
     }
-    Generator(config, dry_run=True).run()
+    return Generator(config, dry_run=True).run()

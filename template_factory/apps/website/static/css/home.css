@@ -29,7 +29,6 @@ body {
   height: 100%;
   color: #fff;
   background-color: rgba(3,3,3,.7);
-  text-shadow: 0 1px 3px rgba(0,0,0,.5);
 }
 
 body::after{
@@ -139,6 +138,13 @@ body::after{
   color: rgba(255,255,255,.5);
 }
 
+/*
+ * Form
+ */
+form, .panel, .panel a{
+  color: #000 !important;
+}
+
 
 /*
  * Affix and center
@@ -173,3 +179,5 @@ body::after{
     width: 700px;
   }
 }
+
+
