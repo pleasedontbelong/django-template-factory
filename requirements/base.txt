@@ -7,6 +7,7 @@ psycopg2==2.6.2
 django-extended-choices==1.1.1
 django-split-settings==0.2.3
 Factory==1.2
+Fabric==1.13.1
 
 # Addons requirements
 
