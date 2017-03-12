@@ -1,0 +1,2 @@
+# Default prod for Heroku Build
+-r requirements/prod.txt

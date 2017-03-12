@@ -1,1 +1,1 @@
-web: gunicorn .wsgi --log-file -
+web: gunicorn template_factory.wsgi --log-file -
