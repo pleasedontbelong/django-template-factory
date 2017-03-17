@@ -4,5 +4,6 @@
 
 gunicorn==19.6.0
 newrelic==2.68.0.50
+whitenoise==3.3.0
 
 # Addons requirements
