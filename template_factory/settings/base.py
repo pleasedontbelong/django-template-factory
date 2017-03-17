@@ -16,7 +16,7 @@ from sys import path
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = dirname(dirname(abspath(__file__)))
+BASE_DIR = dirname(dirname(dirname(abspath(__file__))))
 ROOT = realpath(join(dirname(__file__), '..'))
 
 path[0:0] = [

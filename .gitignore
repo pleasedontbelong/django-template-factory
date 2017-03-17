@@ -90,3 +90,5 @@ settings/local.py
 
 .env
 db.sqlite3
+
+/static/
