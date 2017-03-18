@@ -1,5 +1,6 @@
 # Core requirements
 
+ipython
 dj-database-url==0.4.1
 django-extensions==1.7.2
 Django==1.10.0
