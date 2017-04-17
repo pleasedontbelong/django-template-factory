@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.10/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
-
+import os
 from split_settings.tools import include
 from os.path import dirname, join, realpath, abspath
 from sys import path
@@ -28,7 +28,7 @@ path[0:0] = [
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '^x3p&(xkuldf7@gt=)t^*cw5!otjf&ixmwv)6suc((ps2m03ys'
+SECRET_KEY = os.environ.get('SECRET_KEY', '^x3p&(xkuldf7@gt=)t^*cw5!otjf&ixmwv)6suc((ps2m03ys')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -56,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'website.middleware.SSLRedirect',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
