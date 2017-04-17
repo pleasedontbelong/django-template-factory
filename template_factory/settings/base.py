@@ -135,3 +135,7 @@ STATIC_ROOT = 'static/'
 # ADDONS
 
 include('addons/*.py')
+
+GENERATOR_DRY_RUN = True
+
+FORCE_SSL = False

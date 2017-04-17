@@ -3,6 +3,7 @@
 from .base import *  # NOQA
 from os.path import join, environ
 
+
 DEBUG = False
 TEMPLATE_DEBUG = False
 CSRF_COOKIE_SECURE = True
@@ -22,3 +23,5 @@ MIDDLEWARE += [
 
 STATIC_ROOT = join(BASE_DIR, "static")
 STATIC_URL = "/static/"
+
+FORCE_SSL = True
