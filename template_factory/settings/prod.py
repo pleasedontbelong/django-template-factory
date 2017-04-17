@@ -17,6 +17,7 @@ ALLOWED_HOSTS = ['.%s' % PARENT_HOST]
 SESSION_COOKIE_DOMAIN = ALLOWED_HOSTS[0]
 SESSION_COOKIE_NAME = 'django-template-factory'
 CSRF_COOKIE_DOMAIN = PARENT_HOST
+CSRF_TRUSTED_ORIGINS = [PARENT_HOST]
 
 MIDDLEWARE += [
     'whitenoise.middleware.WhiteNoiseMiddleware',
