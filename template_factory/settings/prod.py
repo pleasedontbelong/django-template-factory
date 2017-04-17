@@ -1,7 +1,8 @@
 # https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 from .base import *  # NOQA
-from os.path import join, environ
+from os import environ
+from os.path import join
 
 
 DEBUG = False
