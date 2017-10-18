@@ -43,3 +43,5 @@ LOGGING = {
         },
     },
 }
+
+GENERATOR_DRY_RUN = False
